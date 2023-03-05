@@ -12,3 +12,17 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+# Exclude locally installed dependencies
+venv/
+__pycache__/
+
+# Exclude local IDE settings
+.idea/
+.vscode/
+
+# Exclude testing cache
+.pytest_cache/
+
+# macOS
+**/.DS_Store
