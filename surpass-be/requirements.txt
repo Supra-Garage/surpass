@@ -1,3 +1,17 @@
-Flask==2.3.3
+# Flask==2.3.3
 requests==2.31.0
+uvicorn==0.27.1
+python-dotenv==1.0.1
+langsmith==0.1.8
+langchain==0.1.9
+langchain-community==0.0.24
+langchain-core==0.1.26
+langserve==0.0.42
+fastapi==0.110.0
+weaviate-client==4.4.4
+langchain-google-genai==0.0.9
+langchain-openai==0.0.7
+bs4==0.0.2
+google-cloud-secret-manager==2.18.2
+
 debugpy # Required for debugging.
