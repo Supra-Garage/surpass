@@ -17,7 +17,7 @@ current_dir = os.path.dirname(__file__)
 logger.info(f"当前工作目录：{current_dir}")
 
 # 指定 .env 文件的路径
-dotenv_path = os.path.join(current_dir, 'chat-langchain', '.env')
+dotenv_path = os.path.join(current_dir, '.env')
 logger.info(f"dotenv加载：{dotenv_path}")
 
 load_dotenv(dotenv_path=dotenv_path)
@@ -31,7 +31,7 @@ from surpass.backend.parsing.parser import langchain_docs_extractor
 
 import weaviate
 from bs4 import BeautifulSoup, SoupStrainer
-from langchain.document_loaders import RecursiveUrlLoader, SitemapLoader
+from langchain_community.document_loaders import RecursiveUrlLoader, SitemapLoader
 from langchain.indexes import SQLRecordManager, index
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.utils.html import PREFIXES_TO_IGNORE_REGEX, SUFFIXES_TO_IGNORE_REGEX

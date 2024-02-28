@@ -13,5 +13,9 @@ langchain-google-genai==0.0.9
 langchain-openai==0.0.7
 bs4==0.0.2
 google-cloud-secret-manager==2.18.2
+anthropic==0.16.0
+fireworks-ai==0.12.1
+sse-starlette==2.0.0
+PyMySQL==1.1.0
 
 debugpy # Required for debugging.
