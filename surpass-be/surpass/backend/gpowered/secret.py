@@ -98,6 +98,7 @@ class GCloudSecrety:
         如果所有给定的keys都没有对应的非空环境变量，返回None。
         """
         keys = [
+            "DEPLOY_PROJECT_ID",
             "GCP_PROJECT_ID",
             "PROJECT_ID",
             "GCP_PROJECT",
