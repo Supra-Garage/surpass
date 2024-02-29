@@ -25,7 +25,11 @@ logger.info(f"devMode[{debug}] systemUser is {systemUser} ")
 
 
 # 使用 logger 打印信息
-logger.info("配置环境变量")
+logger.info("配置环境变量，初始值：")
+
+for key, value in os.environ.items():
+    logger.info(f"env >>> {key}: {value}")
+
 
 if not debug:
     gCloudSecrety = GCloudSecrety()
@@ -47,10 +51,12 @@ dotenv_path = os.path.join(current_dir, ".env")
 # logger.info(f"dotenv加载：{dotenv_path}")
 
 load_dotenv(dotenv_path=dotenv_path)
+
 logger.info(f"dotenv加载完毕：")
+
 # 打印所有环境变量
-# for key, value in os.environ.items():
-#     print(f"env >>> {key}: {value}")
+for key, value in os.environ.items():
+    print(f"env >>> {key}: {value}")
 
 import asyncio
 from typing import Optional, Union

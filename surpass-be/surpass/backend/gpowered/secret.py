@@ -32,9 +32,12 @@ class GCloudSecrety:
     def access_secret_version(self, secret_key):
         """Return the value of a secret's version"""
 
-        if self.secrets[secret_key]:
-            logger.info(f"access_secret_version get {secret_key} = {self.secrets[secret_key]}")
-            return self.secrets[secret_key]
+        secret = self.secrets.get(secret_key)
+        if secret:
+            logger.info(
+                f"access_secret_version get {secret_key} = {secret}"
+            )
+            return secret
 
         # Create the Secret Manager client.
         client = secretmanager.SecretManagerServiceClient()
@@ -65,8 +68,13 @@ class GCloudSecrety:
         # Create the Secret Manager client.
         client = secretmanager.SecretManagerServiceClient()
         project_id = self.getProjectId()
+        if not project_id:
+            logger.info("secretToEnv >>> ret by no project_id")
+            return
+
         # 构建项目名称
         parent = f"projects/{project_id}"
+        logger.info(f"secretToEnv >>> parent:: {parent}")
         # 列出所有密钥
         for secret in client.list_secrets(request={"parent": parent}):
             secret_name = secret.name
@@ -81,8 +89,25 @@ class GCloudSecrety:
             os.environ[secret_id] = secret_value
             self.secrets[secret_id] = secret_value
             logger.info(
-                f"Set secret {secret_id}[{secret_value}] as environment variable."
+                f"secretToEnv >>> Set secret {secret_id}[{secret_value}] as environment variable."
             )
 
     def getProjectId(self):
-        return os.environ["PROJECT_ID"]
+        """
+        遍历keys列表，返回第一个对应的非空环境变量值。
+        如果所有给定的keys都没有对应的非空环境变量，返回None。
+        """
+        keys = [
+            "GCP_PROJECT_ID",
+            "PROJECT_ID",
+            "GCP_PROJECT",
+            "GOOGLE_CLOUD_PROJECT",
+            "CLOUDSDK_CORE_PROJECT",
+        ]
+        for key in keys:
+            value = os.getenv(key)  # 获取环境变量值
+            if value:  # 如果value不为空
+                logger.info(f"getProjectId >>> 采用 [{key}] 的值 [{value}]")
+                return value
+        logger.info(f"getProjectId >>> 没有找到")
+        return None
