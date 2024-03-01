@@ -67,6 +67,7 @@ class GCloudSecrety:
 
         # Create the Secret Manager client.
         client = secretmanager.SecretManagerServiceClient()
+
         project_id = self.getProjectId()
         if not project_id:
             logger.info("secretToEnv >>> ret by no project_id")

@@ -11,7 +11,8 @@ from surpass.backend.gpowered.secret import GCloudSecrety
 import surpass.backend.gpowered.secret as secret
 
 systemUser = os.environ.get("USER")
-debug = "supra" == systemUser
+dbUrl = os.environ.get("RECORD_MANAGER_DB_URL")
+debug = os.environ.get("SU_DEBUG") or "supra" == systemUser or not dbUrl or "empty" == dbUrl
 
 # 配置根日志记录器
 logging.basicConfig(level=logging.INFO)
@@ -21,7 +22,7 @@ logger = logging.getLogger(__name__)
 logger.info(f"__name__ is {__name__}")
 
 # 使用 logger 打印信息
-logger.info(f"devMode[{debug}] systemUser is {systemUser} ")
+logger.info(f"devMode[{debug}] \n systemUser is {systemUser} \n dbUrl is {dbUrl}")
 
 
 # 使用 logger 打印信息
