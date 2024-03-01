@@ -12,7 +12,9 @@ import surpass.backend.gpowered.secret as secret
 
 systemUser = os.environ.get("USER")
 dbUrl = os.environ.get("RECORD_MANAGER_DB_URL")
-debug = os.environ.get("SU_DEBUG") or "supra" == systemUser or not dbUrl or "empty" == dbUrl
+debug = (
+    os.environ.get("SU_DEBUG") or "supra" == systemUser or not dbUrl or "empty" == dbUrl
+)
 
 # 配置根日志记录器
 logging.basicConfig(level=logging.INFO)
@@ -68,7 +70,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from langserve import add_routes
 from langsmith import Client
 from pydantic import BaseModel
-from surpass.backend.chain import ChatRequest, answer_chain
+
+if not debug:
+    from surpass.backend.chain import ChatRequest, answer_chain
 import pymysql
 
 client = Client()
