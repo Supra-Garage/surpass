@@ -35,15 +35,8 @@ for key, value in os.environ.items():
     logger.info(f"env >>> {key}: {value}")
 
 
-if not debug:
-    gCloudSecrety = GCloudSecrety()
-    gCloudSecrety.secretToEnv()
-
-    weaviateApiKey = gCloudSecrety.access_secret_version("WEAVIATE_API_KEY")
-    openaiApikey = gCloudSecrety.access_secret_version("openai-apikey")
-
-    logger.info(f"access_secret_version >> WEAVIATE_API_KEY = {weaviateApiKey}")
-    logger.info(f"access_secret_version >> openai-apikey = {openaiApikey}")
+gCloudSecrety = GCloudSecrety()
+gCloudSecrety.secretToEnv()
 
 # 获取当前文件所在目录的路径
 current_dir = os.path.dirname(__file__)
