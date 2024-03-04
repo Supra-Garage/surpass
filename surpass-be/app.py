@@ -3,29 +3,9 @@ A sample Hello World server.
 """
 
 import os
-import logging
 from dotenv import load_dotenv
-
-from surpass.backend.gpowered.secret import GCloudSecrety
-
-import surpass.backend.gpowered.secret as secret
-
-
-# 配置根日志记录器
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# 使用 logger 打印信息
-logger.info(f"__name__ is {__name__}")
-
-systemUser = os.environ.get("USER")
-dbUrl = os.environ.get("RECORD_MANAGER_DB_URL")
-debug = (
-    os.environ.get("SU_DEBUG") or "supra" == systemUser or not dbUrl or "empty" == dbUrl
-)
-
-# 使用 logger 打印信息
-logger.info(f"devMode[{debug}] \n systemUser is {systemUser} \n dbUrl is {dbUrl}")
+from supra.suLogging import logger
+from supra.suDebug import debug
 
 
 # 使用 logger 打印信息
@@ -35,8 +15,11 @@ for key, value in os.environ.items():
     logger.info(f"env >>> {key}: {value}")
 
 
-gCloudSecrety = GCloudSecrety()
-gCloudSecrety.secretToEnv()
+if debug:
+    from supra.surpass.backend.gpowered.secret import GCloudSecrety
+    import supra.surpass.backend.gpowered.secret as secret
+    gCloudSecrety = GCloudSecrety()
+    gCloudSecrety.secretToEnv()
 
 # 获取当前文件所在目录的路径
 current_dir = os.path.dirname(__file__)
@@ -65,9 +48,9 @@ from langserve import add_routes
 from langsmith import Client
 from pydantic import BaseModel
 
-if not debug:
-    from surpass.backend.chain import ChatRequest, answer_chain
-import pymysql
+# if not debug:
+from supra.surpass.backend.chain import ChatRequest, answer_chain
+# import pymysql
 
 client = Client()
 
@@ -81,14 +64,14 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
-if not debug:
-    add_routes(
-        app,
-        answer_chain,
-        path="/chat",
-        input_type=ChatRequest,
-        config_keys=["metadata", "configurable", "tags"],
-    )
+# if not debug:
+add_routes(
+    app,
+    answer_chain,
+    path="/chat",
+    input_type=ChatRequest,
+    config_keys=["metadata", "configurable", "tags"],
+)
 
 
 class SendFeedbackBody(BaseModel):
@@ -200,7 +183,7 @@ async def table(
         "X_DB_NAME": dbName,
     }
 
-    import surpass.backend.db as surDb
+    import supra.surpass.backend.db as surDb
 
     # 调用 list_tables 函数，使用示例数据库连接信息
     tables = surDb.list_tables(dbHost, dbPort, dbUser, dbPass, dbName)

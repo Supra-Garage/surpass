@@ -27,7 +27,7 @@ load_dotenv(dotenv_path=dotenv_path)
 #     print(f"env >>> {key}: {value}")
 
 import re
-from surpass.backend.parsing.parser import langchain_docs_extractor
+from supra.surpass.backend.parsing.parser import langchain_docs_extractor
 
 import weaviate
 from bs4 import BeautifulSoup, SoupStrainer
@@ -39,7 +39,7 @@ from langchain.vectorstores.weaviate import Weaviate
 from langchain_core.embeddings import Embeddings
 from langchain_openai import OpenAIEmbeddings
 
-from surpass.backend.constants import WEAVIATE_DOCS_INDEX_NAME
+from supra.surpass.backend.constants import WEAVIATE_DOCS_INDEX_NAME
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

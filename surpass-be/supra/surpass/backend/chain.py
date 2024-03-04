@@ -29,8 +29,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langsmith import Client
 
-from surpass.backend.constants import WEAVIATE_DOCS_INDEX_NAME
-from surpass.backend.ingest import get_embeddings_model
+from supra.surpass.backend.constants import WEAVIATE_DOCS_INDEX_NAME
+from supra.surpass.backend.ingest import get_embeddings_model
 
 RESPONSE_TEMPLATE = """\
 You are an expert programmer and problem-solver, tasked with answering any question \
