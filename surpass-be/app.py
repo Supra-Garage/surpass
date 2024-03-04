@@ -15,7 +15,7 @@ for key, value in os.environ.items():
     logger.info(f"env >>> {key}: {value}")
 
 
-if debug:
+if not debug:
     from supra.surpass.backend.gpowered.secret import GCloudSecrety
     import supra.surpass.backend.gpowered.secret as secret
     gCloudSecrety = GCloudSecrety()
